@@ -22,7 +22,7 @@ Looking for a cracker? [xCloud - Cloud Cracker](https://t.me/twittercrack)
 
 - Download the repo
 - pip install -r requirements.txt
-- Load tokens  (buy them directly from [@fatbeebhw](https://t.me/fatbeebhw) or crack them yourself [xCloud - Cloud Cracker](https://t.me/twittercrack), proxies ([Beeproxies.com](https://t.me/buybee_bot))
+- Load tokens  (buy them directly from [@fatbeebhw](https://t.me/fatbeebhw) or crack them yourself [xCloud - Cloud Cracker](https://t.me/twittercrack)), proxies ([Beeproxies.com](https://t.me/buybee_bot))
 - python main.py
 - Have fun.
 
