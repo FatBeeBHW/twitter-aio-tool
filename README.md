@@ -20,7 +20,7 @@ Looking for cracker? [xCloud - Cloud Cracker](https://t.me/twittercrack)
 
 - Download the repo
 - pip install -r requirements.txt
-- Load tokens (@twittercrack), proxies (@buybee_proxies)
+- Load tokens ([xCloud - Cloud Cracker](https://t.me/twittercrack)), proxies ([Beeproxies.com](https://t.me/buybee_bot))
 - python main.py
 - Have fun.
 
@@ -31,3 +31,5 @@ Looking for cracker? [xCloud - Cloud Cracker](https://t.me/twittercrack)
 #### Do i really need tokens?
 
 - Bruh?
+
+This project is for educational purposes only.
