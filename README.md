@@ -3,7 +3,7 @@ A simple, fast &amp; free opensource Twitter (X) All-In-One Tool/ (mass quote, m
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
-<center>![xAIO Screenshot](https://i.ibb.co/SrL0yzT/image.png)</center>
+![xAIO Screenshot](https://i.ibb.co/SrL0yzT/image.png)
 
 
 # Cracker? Proxies?
