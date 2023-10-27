@@ -12,8 +12,8 @@ ACTIONS = {
     "3": {"name": "bookmark", "has_message": False},
     "4": {"name": "reply", "has_message": True},
     "5": {"name": "retweet", "has_message": False},
-    "6": {"name": "views", "has_message": False},
-    "7": {"name": "quote", "has_message": True},
+    "7": {"name": "views", "has_message": False},
+    "6": {"name": "quote", "has_message": True},
     "8": {"name": "mass_reply", "has_message": False},
     "9": {"name": "mass_quote", "has_message": False},
 }
