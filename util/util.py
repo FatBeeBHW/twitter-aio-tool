@@ -15,7 +15,6 @@ ACTIONS = {
     "6": {"name": "quote", "has_message": True},
     "7": {"name": "mass_reply", "has_message": False},
     "8": {"name": "mass_quote", "has_message": False},
-    "9": {"name": "mass_retweet", "has_message": False}
 }
 
 

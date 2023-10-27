@@ -149,9 +149,6 @@ class TokenManager:
                 elif self.action == "mass_quote":
                     message = await build_mass_message(min_users, max_users)
                     action = "quote"  # Use the standard quote action
-                elif self.action == "mass_retweet":
-                    message = await build_mass_message(min_users, max_users)
-                    action = "retweet"  # Use the standard retweet action
                 else:
                     message = self.message
                     action = self.action
@@ -198,7 +195,6 @@ def display_main_menu(token_count: int, proxies_count: int):
     menu.add_row("", "[bold royal_blue1]🌌 Mass Actions")
     menu.add_row("[7]", "💬 Mass Reply")
     menu.add_row("[8]", "📌 Mass Quote")
-    menu.add_row("[9]", "🔁 Mass Retweet")
     menu.add_row("", "")
     menu.add_row("", "")
     menu.add_row(
@@ -227,7 +223,7 @@ async def handle_choice(choice):
     action_details = ACTIONS[choice]
     action_name = action_details["name"]
 
-    if action_name in ["mass_reply", "mass_quote", "mass_retweet"]:
+    if action_name in ["mass_reply", "mass_quote"]:
         min_users = int(Prompt.ask(
             "[bold yellow]Minimum Tags[/bold yellow]", default="0"))
         max_users = int(Prompt.ask(
@@ -240,7 +236,7 @@ async def handle_choice(choice):
 
     manager = await TokenManager.create(action_name, target, total_actions, message if "message" in locals() else None, concurrency)
 
-    if action_name in ["mass_reply", "mass_quote", "mass_retweet"]:
+    if action_name in ["mass_reply", "mass_quote"]:
         await manager.manage_tokens(min_users, max_users, min_delay, max_delay)
     else:
         await manager.manage_tokens(None, None, min_delay, max_delay)
@@ -256,7 +252,7 @@ async def main_loop():
         display_main_menu(token_count, proxies_count)
 
         choice = Prompt.ask("[bold chartreuse3]Choose an option", choices=[
-                            "1", "2", "3", "4", "5", "6", "7", "8", "9", "x"], default="x", show_choices=False)
+                            "1", "2", "3", "4", "5", "6", "7", "8", "x"], default="x", show_choices=False)
 
         result = await handle_choice(choice)
         if result == "exit":
