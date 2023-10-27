@@ -109,7 +109,7 @@ class TokenWorker:
             elif self.action == "bookmark":
                 await twitter_action.bookmark(self.target, screen_name)
             elif self.action == "retweet":
-                await twitter_action.retweet(self.target, screen_name, self.message)
+                await twitter_action.retweet(self.target, screen_name)
 
 
 class TokenManager:
