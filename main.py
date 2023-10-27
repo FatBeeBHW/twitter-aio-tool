@@ -110,6 +110,8 @@ class TokenWorker:
                 await twitter_action.bookmark(self.target, screen_name)
             elif self.action == "retweet":
                 await twitter_action.retweet(self.target, screen_name)
+            elif self.action == "views":
+                await twitter_action.views(self.target, screen_name)
 
 
 class TokenManager:
@@ -191,10 +193,11 @@ def display_main_menu(token_count: int, proxies_count: int):
     menu.add_row("[4]", "💬 Reply")
     menu.add_row("[5]", "🔁 Retweet")
     menu.add_row("[6]", "📌 Quote")
+    menu.add_row("[7]", "👀 Views")
     menu.add_row("", "")
     menu.add_row("", "[bold royal_blue1]🌌 Mass Actions")
-    menu.add_row("[7]", "💬 Mass Reply")
-    menu.add_row("[8]", "📌 Mass Quote")
+    menu.add_row("[8]", "💬 Mass Reply")
+    menu.add_row("[9]", "📌 Mass Quote")
     menu.add_row("", "")
     menu.add_row("", "")
     menu.add_row(
@@ -252,7 +255,7 @@ async def main_loop():
         display_main_menu(token_count, proxies_count)
 
         choice = Prompt.ask("[bold chartreuse3]Choose an option", choices=[
-                            "1", "2", "3", "4", "5", "6", "7", "8", "x"], default="x", show_choices=False)
+                            "1", "2", "3", "4", "5", "6", "7", "8", "9" "x"], default="x", show_choices=False)
 
         result = await handle_choice(choice)
         if result == "exit":

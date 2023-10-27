@@ -313,3 +313,76 @@ class TwitterActions:
         print(
             f"[red][X] {screen_name} ({self.auth}) Faild to Follow: [white]{target}")
         return False
+
+    async def views(self, target, screen_name):
+
+        headers = {
+            'authority': 'twitter.com',
+            'accept': '*/*',
+            'accept-language': 'en-US,en;q=0.9',
+            'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA',
+            'content-type': 'application/json',
+            'dnt': '1',
+            'referer': f'https://twitter.com/CultureCrave/status/{target}',
+            'sec-ch-ua': '"Chromium";v="118", "Google Chrome";v="118", "Not=A?Brand";v="99"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-origin',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36',
+            'x-csrf-token': self.ct0,
+            'x-twitter-active-user': 'yes',
+            'x-twitter-auth-type': 'OAuth2Session',
+            'x-twitter-client-language': 'en',
+        }
+
+        params = {
+            'variables': {
+                "focalTweetId": target,
+                "with_rux_injections": False,
+                "includePromotedContent": True,
+                "withCommunity": True,
+                "withQuickPromoteEligibilityTweetFields": True,
+                "withBirdwatchNotes": True,
+                "withVoice": True,
+                "withV2Timeline": True
+            },
+            'features': {
+                "responsive_web_graphql_exclude_directive_enabled": True,
+                "verified_phone_label_enabled": False,
+                "responsive_web_home_pinned_timelines_enabled": True,
+                "creator_subscriptions_tweet_preview_api_enabled": True,
+                "responsive_web_graphql_timeline_navigation_enabled": True,
+                "responsive_web_graphql_skip_user_profile_image_extensions_enabled": False,
+                "c9s_tweet_anatomy_moderator_badge_enabled": True,
+                "tweetypie_unmention_optimization_enabled": True,
+                "responsive_web_edit_tweet_api_enabled": True,
+                "graphql_is_translatable_rweb_tweet_is_translatable_enabled": True,
+                "view_counts_everywhere_api_enabled": True,
+                "longform_notetweets_consumption_enabled": True,
+                "responsive_web_twitter_article_tweet_consumption_enabled": False,
+                "tweet_awards_web_tipping_enabled": False,
+                "freedom_of_speech_not_reach_fetch_enabled": True,
+                "standardized_nudges_misinfo": True,
+                "tweet_with_visibility_results_prefer_gql_limited_actions_policy_enabled": True,
+                "longform_notetweets_rich_text_read_enabled": True,
+                "longform_notetweets_inline_media_enabled": True,
+                "responsive_web_media_download_video_enabled": False,
+                "responsive_web_enhance_cards_enabled": False
+            },
+            'fieldToggles': {
+                "withArticleRichContentState": False
+            }
+        }
+
+        response = await self._make_request('GET', 'https://twitter.com/i/api/graphql/BbmLpxKh8rX8LNe2LhVujA/TweetDetail', params=params, headers=headers)
+        status, response_data = response
+        # print(status, response_data)
+        if status == 200:
+            print(
+                f"[bold chartreuse3][!] [white]{screen_name} [bold chartreuse3]([white]{self.auth}[bold chartreuse3]) viewed: [white]{target}")
+            return True
+        print(
+            f"[red][X] {screen_name} ({self.auth}) Faild to View: [white]{target}")
+        return False
