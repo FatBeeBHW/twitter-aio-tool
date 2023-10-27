@@ -39,7 +39,6 @@ async def get_action_parameters(action_name):
     choice = [key for key, value in ACTIONS.items() if value["name"]
               == action_name][0]
     action_details = ACTIONS[choice]
-
     min_delay = int(Prompt.ask(
         "[bold yellow]Minimum Delay[/bold yellow]", default="0"))
 
@@ -50,9 +49,9 @@ async def get_action_parameters(action_name):
     if action_details["has_message"]:
         message = Prompt.ask("[bold yellow]Enter the message[/bold yellow]")
     total_actions = int(Prompt.ask(
-        "[bold yellow]How many actions do you want?[/bold yellow]", default="100"))
+        f"[bold yellow]How many {action_name}s do you want?[/bold yellow]", default="100"))
     concurrency = int(Prompt.ask(
-        "[bold yellow]Concurrency (how many actions at the same time)?[/bold yellow]", default="10"))
+        f"[bold yellow]Concurrency (how many {action_name}s at the same time)?[/bold yellow]", default="10"))
 
     return target, message, total_actions, concurrency, min_delay, max_delay
 
