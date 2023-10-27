@@ -42,7 +42,7 @@ class TwitterActions:
         if self.session:
             await self.session.close()
 
-    async def _make_request(self, method, url, json_data=None, data=None, headers=None, timeout=5):
+    async def _make_request(self, method, url, json_data=None, params=None, data=None, headers=None, timeout=5):
         headers = headers or self.BASE_HEADERS.copy()
         headers['x-csrf-token'] = self.ct0
         self.session.cookie_jar.update_cookies(
@@ -58,7 +58,7 @@ class TwitterActions:
 
         for attempt in range(self.RETRIES):
             try:
-                async with session_methods[method](url, json=json_data if json_data else None, data=data if data else None, headers=headers, proxy=self.proxy, timeout=timeout) as resp:
+                async with session_methods[method](url, json=json_data if json_data else None, data=data if data else None, params=params if params else None, headers=headers, proxy=self.proxy, timeout=timeout) as resp:
                     if resp.status == 200:
                         try:
                             return resp.status, await resp.text()
