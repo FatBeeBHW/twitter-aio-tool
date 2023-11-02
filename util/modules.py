@@ -3,6 +3,7 @@ from rich import print
 from aiohttp import ClientConnectionError, TooManyRedirects, ClientProxyConnectionError, ClientTimeout
 import json
 import asyncio
+import time
 
 
 class TwitterActions:
@@ -314,38 +315,107 @@ class TwitterActions:
             f"[red][X] {screen_name} ({self.auth}) Faild to Follow: [white]{target}")
         return False
 
+    # Thank you @postuwu <3
+
     async def views(self, target, screen_name):
 
-        headers = {
-            'authority': 'twitter.com',
-            'accept': '*/*',
-            'accept-language': 'en-US,en;q=0.9',
-            'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA',
-            'content-type': 'application/json',
-            'dnt': '1',
-            'referer': f'https://twitter.com/CultureCrave/status/{target}',
-            'sec-ch-ua': '"Chromium";v="118", "Google Chrome";v="118", "Not=A?Brand";v="99"',
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': '"Windows"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-origin',
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36',
-            'x-csrf-token': self.ct0,
-            'x-twitter-active-user': 'yes',
-            'x-twitter-auth-type': 'OAuth2Session',
-            'x-twitter-client-language': 'en',
-        }
-
         params = {
-            'variables': '{"focalTweetId": "' + target + '","with_rux_injections":false,"includePromotedContent":true,"withCommunity":true,"withQuickPromoteEligibilityTweetFields":true,"withBirdwatchNotes":true,"withVoice":true,"withV2Timeline":true}',
-            'features': '{"responsive_web_graphql_exclude_directive_enabled":true,"verified_phone_label_enabled":false,"responsive_web_home_pinned_timelines_enabled":true,"creator_subscriptions_tweet_preview_api_enabled":true,"responsive_web_graphql_timeline_navigation_enabled":true,"responsive_web_graphql_skip_user_profile_image_extensions_enabled":false,"c9s_tweet_anatomy_moderator_badge_enabled":true,"tweetypie_unmention_optimization_enabled":true,"responsive_web_edit_tweet_api_enabled":true,"graphql_is_translatable_rweb_tweet_is_translatable_enabled":true,"view_counts_everywhere_api_enabled":true,"longform_notetweets_consumption_enabled":true,"responsive_web_twitter_article_tweet_consumption_enabled":false,"tweet_awards_web_tipping_enabled":false,"freedom_of_speech_not_reach_fetch_enabled":true,"standardized_nudges_misinfo":true,"tweet_with_visibility_results_prefer_gql_limited_actions_policy_enabled":true,"longform_notetweets_rich_text_read_enabled":true,"longform_notetweets_inline_media_enabled":true,"responsive_web_media_download_video_enabled":false,"responsive_web_enhance_cards_enabled":false}',
-            'fieldToggles': '{"withArticleRichContentState":false}',
+            "debug": "true",
+            "log": json.dumps([
+                {
+                    "_category_": "client_event",
+                    "format_version": 2,
+                    "triggered_on": int(time.time() * 1000),
+                    "tweet_id": target,
+                    "items": [
+                        {
+                            "item_type": 0,
+                            "id": target,
+                            "author_id": "123",
+                            "is_viewer_follows_tweet_author": False,
+                            "is_tweet_author_follows_viewer": False,
+                            "is_viewer_super_following_tweet_author": False,
+                            "is_viewer_super_followed_by_tweet_author": False,
+                            "is_tweet_author_super_followable": False,
+                            "engagement_metrics": {
+                                "reply_count": 0,
+                                "retweet_count": 0,
+                                "favorite_count": 0,
+                                "quote_count": 0
+                            }
+                        }
+                    ],
+                    "event_namespace": {
+                        "page": "tweet",
+                        "action": "bottom",
+                        "client": "m5"
+                    },
+                    "client_event_sequence_start_timestamp": int(time.time() * 1000),
+                    "client_event_sequence_number": 10,
+                    "client_app_id": "3033300"
+                },
+                {
+                    "_category_": "client_event",
+                    "format_version": 2,
+                    "triggered_on": int(time.time() * 1000),
+                    "items": [
+                        {
+                            "item_type": 0,
+                            "id": target,
+                            "position": 0,
+                            "sort_index": "1",
+                            "percent_screen_height_100k": 31346,
+                            "author_id": "123",
+                            "is_viewer_follows_tweet_author": False,
+                            "is_tweet_author_follows_viewer": False,
+                            "is_viewer_super_following_tweet_author": False,
+                            "is_viewer_super_followed_by_tweet_author": False,
+                            "is_tweet_author_super_followable": False,
+                            "engagement_metrics": {
+                                "reply_count": 0,
+                                "retweet_count": 0,
+                                "favorite_count": 0,
+                                "quote_count": 0
+                            }
+                        }
+                    ],
+                    "event_namespace": {
+                        "page": "tweet",
+                        "component": "stream",
+                        "action": "results",
+                        "client": "m5"
+                    },
+                    "client_event_sequence_start_timestamp": int(time.time() * 1000),
+                    "client_event_sequence_number": 11,
+                    "client_app_id": "3033300"
+                }
+            ])
         }
 
-        response = await self._make_request('GET', 'https://twitter.com/i/api/graphql/BbmLpxKh8rX8LNe2LhVujA/TweetDetail', params=params, headers=headers)
+        headers = {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "accept": "*/*",
+            "accept-encoding": "gzip, deflate, br",
+            "accept-language": "en-US,en;q=0.9",
+            "authorization": "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA",
+            "cache-control": "no-cache",
+            "pragma": "no-cache",
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "Windows",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-twitter-active-user": "yes",
+            "x-twitter-auth-type": "OAuth2Session",
+            "x-twitter-client-language": "en",
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',
+            "x-csrf-token": self.ct0
+        }
+
+        response = await self._make_request('POST', 'https://api.twitter.com/1.1/jot/client_event.json?keepalive=true', params=params, headers=headers)
         status, response_data = response
-        # print(status, response_data)
+        print(status, response_data)
         if status == 200:
             print(
                 f"[bold chartreuse3][!] [white]{screen_name} [bold chartreuse3]([white]{self.auth}[bold chartreuse3]) viewed: [white]{target}")
