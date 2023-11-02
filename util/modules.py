@@ -415,7 +415,7 @@ class TwitterActions:
 
         response = await self._make_request('POST', 'https://api.twitter.com/1.1/jot/client_event.json?keepalive=true', params=params, headers=headers)
         status, response_data = response
-        print(status, response_data)
+        # print(status, response_data)
         if status == 200:
             print(
                 f"[bold chartreuse3][!] [white]{screen_name} [bold chartreuse3]([white]{self.auth}[bold chartreuse3]) viewed: [white]{target}")
