@@ -255,7 +255,7 @@ async def main_loop():
         display_main_menu(token_count, proxies_count)
 
         choice = Prompt.ask("[bold chartreuse3]Choose an option", choices=[
-                            "1", "2", "3", "4", "5", "6", "7", "8", "9" "x"], default="x", show_choices=False)
+                            "1", "2", "3", "4", "5", "6", "7", "8", "9", "x"], default="x", show_choices=False)
 
         result = await handle_choice(choice)
         if result == "exit":
