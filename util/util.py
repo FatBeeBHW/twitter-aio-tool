@@ -13,7 +13,7 @@ ACTIONS = {
     "4": {"name": "reply", "has_message": True},
     "5": {"name": "retweet", "has_message": False},
     "6": {"name": "quote", "has_message": True},
-    "7": {"name": "views", "has_message": False},
+    "7": {"name": "view", "has_message": False},
     "8": {"name": "mass_reply", "has_message": False},
     "9": {"name": "mass_quote", "has_message": False},
 }
@@ -49,9 +49,9 @@ async def get_action_parameters(action_name):
     if action_details["has_message"]:
         message = Prompt.ask("[bold yellow]Enter the message[/bold yellow]")
     total_actions = int(Prompt.ask(
-        f"[bold yellow]How many {action_name}s do you want?[/bold yellow]", default="100"))
+        f"[bold yellow]How many {action_name.replace('_', ' ')}s do you want?[/bold yellow]", default="100"))
     concurrency = int(Prompt.ask(
-        f"[bold yellow]Concurrency (how many {action_name}s at the same time)?[/bold yellow]", default="10"))
+        f"[bold yellow]Concurrency (how many {action_name.replace('_', ' ')}s at the same time)?[/bold yellow]", default="10"))
 
     return target, message, total_actions, concurrency, min_delay, max_delay
 
