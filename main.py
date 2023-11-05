@@ -70,7 +70,7 @@ async def build_mass_message(min_users, max_users):
 
     async with blacklist_lock:
         await save_to_file('mass/blacklist.txt', blacklist)
-    print(' '.join([original_message] + ['@' + u for u in appended_users]))
+    # print(' '.join([original_message] + ['@' + u for u in appended_users]))
     return ' '.join([original_message] + ['@' + u for u in appended_users])
 
 
@@ -140,25 +140,29 @@ class TokenManager:
 
         async def worker_wrapper(token):
             async with semaphore:
-                ct0, auth = token  # Splitting the token
-                proxy = await get_next_proxy()
-                await save_used_token(token)  # Save the full token
+                if len(token) == 2:
+                    ct0, auth = token  # Splitting the token
+                    proxy = await get_next_proxy()
+                    await save_used_token(token)  # Save the full token
 
-                # Determine the action type and potentially generate a unique message
-                if self.action == "mass_reply":
-                    message = await build_mass_message(min_users, max_users)
-                    action = "reply"  # Use the standard reply action
-                elif self.action == "mass_quote":
-                    message = await build_mass_message(min_users, max_users)
-                    action = "quote"  # Use the standard quote action
+                    # Determine the action type and potentially generate a unique message
+                    if self.action == "mass_reply":
+                        message = await build_mass_message(min_users, max_users)
+                        action = "reply"  # Use the standard reply action
+                    elif self.action == "mass_quote":
+
+                        message = await build_mass_message(min_users, max_users)
+                        action = "quote"  # Use the standard quote action
+                    else:
+                        message = self.message
+                        action = self.action
+
+                    worker = TokenWorker(
+                        ct0, auth, proxy, action, self.target, message)
+                    await worker.run(min_delay, max_delay)
                 else:
-                    message = self.message
-                    action = self.action
-
-                worker = TokenWorker(
-                    ct0, auth, proxy, action, self.target, message)
-                await worker.run(min_delay, max_delay)
-
+                    print(
+                        f"[bold red][!] Wrong format of the token. Token needs to end with ct0:auth_token")
         # List to gather all the worker tasks
         tasks = []
         while tokens and remaining_actions > 0:
